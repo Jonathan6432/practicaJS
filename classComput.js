@@ -43,7 +43,7 @@ class Raton extends DispositivoEntrada {
 
   // creacion de metodo toString
   toString() {
-    return `Id Raton: #${this._idRaton}, Entrada:  ${this.tipoEntrada}, Marca:  ${this.marca}`; ;
+    return `[Id Raton: #${this._idRaton}, Entrada:  ${this.tipoEntrada}, Marca:  ${this.marca}]`; 
   }
 
 }
@@ -53,6 +53,7 @@ let ratonP = new Raton("USB","HP");
 console.log(ratonP.toString());
 
 let raton1 = new Raton("Blutooth","Microsoft");
+console.log(raton1.toString());
 
 // -------------------------------------------------
 // incion clase hija teclado
@@ -73,7 +74,7 @@ class Teclado  extends DispositivoEntrada{
   }
  // creacion de metodo toString
  toString() {
-    return `Id Teclado: #${this._idTeclado}, Entrada: ${this.tipoEntrada}, Marca:  ${this.marca}`; 
+    return ` [Id Teclado: #${this._idTeclado}, Entrada: ${this.tipoEntrada}, Marca:  ${this.marca}]`; 
   }
 
 }
@@ -83,6 +84,7 @@ let tecladoP = new Teclado("USB", "PHP");
 console.log(tecladoP.toString());
 
 let teclado1 = new Teclado("Blutooth", "Razer");
+console.log(teclado1.toString());
 
 // --------------------------------------------
 // Inicio clase independiente - Monitor 
@@ -93,7 +95,6 @@ class Monitor{
 
     constructor(marca,tamaño){
       this._idMonitor = ++Monitor.contadorMonitores;
-
       this._marca = marca; 
       this._tamaño = tamaño;
     }
@@ -119,7 +120,7 @@ class Monitor{
     }
 
     toString() {
-      return `Id Monitor: #${this.idMonitor}, Marca: ${this.marca}, Tamaño: ${this.tamaño}`;
+      return `[Id Monitor: #${this.idMonitor}, Marca: ${this.marca}, Tamaño: ${this.tamaño}]`;
   }
 
 }
@@ -129,6 +130,7 @@ let monitorP = new Monitor ("Asus","27 pulgadas" );
 console.log(monitorP.toString());
 
 let monitor1 = new Monitor ("Dell","18 pulgadas" );
+console.log(monitor1.toString());
 
 // Fin clase monitor
 
@@ -136,6 +138,7 @@ let monitor1 = new Monitor ("Dell","18 pulgadas" );
 // Inicio clase computadora
 // ----------------------------------------------------
 
+// relacion de agregaciòn
 class Computadora {
 
   static contadorComputadoras = 0;
@@ -144,7 +147,6 @@ class Computadora {
 
     this._idComputadora = ++Computadora.contadorComputadoras;
     this._nombre = nombre;
-
     this._Monitor = Monitor;
     this._Teclado = Teclado;
     this._Raton = Raton;
@@ -185,7 +187,7 @@ class Computadora {
   }
 
   toString(){
-    return `Id Computadora: #${this.idComputadora},Nombre: ${this.nombre},\nMonitor: ${this.Monitor},\nTeclado: ${this.Teclado},\nRaton: ${this.Raton}`;
+    return `Computadora Id: #${this.idComputadora}, Nombre: ${this.nombre},\nMonitor: ${this.Monitor},\nTeclado: ${this.Teclado},\nRaton: ${this.Raton}`;
   }
  
 
@@ -200,27 +202,29 @@ let computadora1 = new Computadora ("Dell", monitor1,teclado1,raton1);
 // --------------------------------------------------
 
 // Inicio clase Orden 
-
+// Relacion de agregaciòn
 class Orden {
   static contadorOdenes = 0;
 
   constructor(){
     this._idOrden = ++Orden.contadorOdenes;
-    this._computadora = [];
+    this._computadora = [];  /* Arreglo vacio */
   }
 
   get idOrden(){
     return this._idOrden;
   }
 
+  // metodo 1
   agregarComputadora(computadora){
     // metodo push, para agregar productos al arreglo
     this._computadora.push(computadora);
 
   }
 
+  // metodo 2 
   mostrarOrden(){
-    // inicia variables vacia para acomular productos
+    // inicia variables vacia para acomular productos,
     let productosOrden = " ";
 
     for (let computadora of this._computadora){
@@ -235,6 +239,7 @@ class Orden {
 let orden1 = new Orden();
 
 orden1.agregarComputadora(computadoraP);
+orden1.agregarComputadora(computadora1);
 orden1.mostrarOrden();
 
 // ----------------------------------------
@@ -243,3 +248,5 @@ let orden2 = new Orden();
 
 orden2.agregarComputadora(computadora1);
 orden2.mostrarOrden();
+
+// se realiza pruebas
